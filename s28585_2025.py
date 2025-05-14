@@ -6,12 +6,14 @@ def generate_dna_sequence(length):
 
 
 def insert_name(sequence, name):
-    position = random.randint(0, len(sequence)) # Losowo wybierana jest pozycja w ciągu z przedziału od 0 do długości ciągu
+    position = random.randrange(len(sequence) + 1)  # Nowa wersja używa randrange
+    # position = random.randint(0, len(sequence)) # Losowo wybierana jest pozycja w ciągu z przedziału od 0 do długości ciągu
     return sequence[:position] + name + sequence[position:] # Ciąg dzielony jest na dwie części pomiędzy któymi wstawiane jest imie
 
 
 def calculate_statistics(sequence):
-    filtered_seq = ''.join([base for base in sequence if base in 'ACGT']) # tu mam błąd ale poza tym ciąg jest filtrowany sprawdzając każdą pozycje po koleji czy znajduje się w podanyh znakach
+    filtered_seq = ''.join(filter(lambda base: base in 'ACGT', sequence))  # Nowa wersja filtrowania
+    #filtered_seq = ''.join([base for base in sequence if base in 'ACGT']) # ciąg jest filtrowany sprawdzając każdą pozycje po koleji czy znajduje się w podanyh znakach
     total = len(filtered_seq) # długość ciągu bez imienia
     stats = {base: round((filtered_seq.count(base) / total) * 100, 1) for base in 'ACGT'} # obliczanie procentowej zawartości każdego z podanych znaków
     cg_content = stats['C'] + stats['G'] # procentowa zawartość C+G
